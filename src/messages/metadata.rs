@@ -1,7 +1,4 @@
-
 pub mod v0 {
-    use crate::enc::encode_uvarint;
-
 
     #[derive(Debug, Clone)]
     pub struct Topic {
@@ -49,14 +46,13 @@ pub mod v0 {
         buf.extend_from_slice(&[0, 0]);
         // Write correlation_id
         buf.extend_from_slice(&i32::to_be_bytes(correlation_id));
+        // Write the client id
+        buf.extend_from_slice(&i16::to_be_bytes(-1));
         // Write the request
-        //buf.extend(encode_uvarint(request.topics.len().try_into().unwrap()));
         buf.extend_from_slice(&i32::to_be_bytes(request.topics.len().try_into().unwrap()));
         for topic in request.topics.iter() {
-            //buf.extend_from_slice(&i16::to_be_bytes(topic.name.len().try_into().unwrap()));
-            buf.extend(encode_uvarint(topic.name.len().try_into().unwrap()));
+            buf.extend_from_slice(&i16::to_be_bytes(topic.name.len().try_into().unwrap()));
             buf.extend_from_slice(topic.name.as_bytes());
         }
     }
-
 }

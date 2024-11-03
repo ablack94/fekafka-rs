@@ -24,7 +24,10 @@ pub enum DecodeUvarintError {
     UnexpectedEof,
 }
 
-pub fn decode_uvarint<'a>(bytes: &'a mut impl Iterator<Item = &'a u8>) -> Result<u32, DecodeUvarintError> {
+/// Decode an unsigned variable length encoded integer.
+pub fn decode_uvarint<'a>(
+    bytes: &'a mut impl Iterator<Item = &'a u8>,
+) -> Result<u32, DecodeUvarintError> {
     let mut value: u32 = 0;
     let mut cur: u8;
     // First read
@@ -65,7 +68,6 @@ pub fn decode_uvarint<'a>(bytes: &'a mut impl Iterator<Item = &'a u8>) -> Result
         Ok(value)
     }
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -168,5 +170,4 @@ mod tests {
         // Assert
         assert_eq!(expected, result);
     }
-
 }

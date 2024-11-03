@@ -1,4 +1,3 @@
-
 pub enum ErrorCode {
     UNKNOWN_SERVER_ERROR,
     NONE,
@@ -123,4 +122,3 @@ pub enum ErrorCode {
     INVALID_REGISTRATION,
     TRANSACTION_ABORTABLE,
 }
-

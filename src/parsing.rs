@@ -79,14 +79,14 @@ impl<'a> Parser<'a> {
 
     pub fn next_string(&mut self) -> Result<String, ParserNextStringError> {
         let len = self.next_primitive::<i16>()?;
-        let real_len = usize::try_from(len).map_err(|_err| ParserNextStringError::NegativeLength)?;
+        let real_len =
+            usize::try_from(len).map_err(|_err| ParserNextStringError::NegativeLength)?;
         let bytes = self.next_bytes(real_len)?;
         unsafe {
             let value = str::from_utf8_unchecked(bytes);
             Ok(value.to_string())
         }
     }
-
 }
 
 #[cfg(test)]
@@ -176,5 +176,4 @@ mod tests {
             Err(ParserNextError::UnexpectedEndOfInput)
         ))
     }
-
 }
